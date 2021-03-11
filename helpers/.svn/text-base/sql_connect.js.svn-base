@@ -1,0 +1,25 @@
+exports.connect = function( query, fn ) {
+    'use strict';
+
+    var mysql      = require('mysql'),
+        connection = mysql.createConnection({
+            host     : '134.0.117.70',
+            port     : '3306',
+            user     : 'root',
+            password : 'krutoy',
+            database : 'orders',
+            //charset  : 'cp1251_general_ci',
+            charsetNumber: 50,
+            insecureAuth: true,
+            multipleStatements: true,
+        });
+
+    connection.connect();
+
+    connection.query(query, function(err, rows, fields) {
+        fn(err, rows);
+    });
+
+    connection.end();
+};
+

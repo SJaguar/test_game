@@ -1,0 +1,45 @@
+.tab
+    .modal_who
+        h3 Выбирай хто ты ? :)
+        #choice
+            #modal_left_div
+                button(id="null").button_null Я ноль :)
+                br
+                img(src="public/img/null.png").img_small
+            #modal_right_div
+                button(id="cross").button_cross Я не ноль ! :)
+                br
+                img(src="public/img/cross.png").img_small
+    .modal_enemy
+        h3 С кем поиграем ?
+        #choice
+            #modal_left_div
+                button(id="ai").button_null Против нейронки
+                br
+                img(src="public/img/ai.png").img_small
+            #modal_right_div
+                button(id="pc").button_cross Против калькулятора
+                br
+                img(src="public/img/pc.png").img_small
+    .modal_game
+        div#new_game Новая игра
+        h3.score Счет 0 : 0
+        .main_div_cells
+            .first_cell#left_bottom_border(data-id=1)
+                p &nbsp;
+            .second_cell#left_bottom_border(data-id=2)
+                p &nbsp;
+            .third_cell#bottom_border(data-id=3)
+                p &nbsp;
+            .fourth_cell#left_bottom_border(data-id=4)
+                p &nbsp;
+            .fifth_cell#left_bottom_border(data-id=5)
+                p &nbsp;
+            .sixth_cell#bottom_border(data-id=6)
+                p &nbsp;
+            .seventh_cell#right_border(data-id=7)
+                p &nbsp;
+            .eighth_cell#right_border(data-id=8)
+                p &nbsp;
+            .ninth_cell#empty_border(data-id=9)
+                p &nbsp;

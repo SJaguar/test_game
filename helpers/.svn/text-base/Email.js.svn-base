@@ -1,0 +1,190 @@
+﻿/**
+ * Created with JetBrains WebStorm.
+ * User: off
+ * Date: 02.08.12
+ * Time: 19:29
+ * To change this template use File | Settings | File Templates.
+ */
+
+var nodemailer = require("nodemailer"),
+	sendMail = function( transport, options, callback ){
+		// send mail with defined transport object
+		transport.sendMail(options, function(error, response){
+			if(!error)
+				callback({success: true});
+			else{
+				callback({smessages: [ {message: error} ]});
+			}
+            transport.close(); // shut down the connection pool, no more messages
+		});
+    };
+
+exports.sendEmailToSupport = function( body, callback ) {
+	'use strict';
+
+	var from = ( body.fio !== '' ? body.fio : 'Не представился' ),
+        message = "Заказчик: " + from + ", Телефон: " + body.phone,
+		smtpTransport = nodemailer.createTransport("SMTP",{
+			service: "yandex",
+			auth: {
+                user: "noreply@b4express.ru",
+                pass: "noreply4express"
+			}
+		}),
+        fromSplit = from + "-" + body.phone,
+		mailOptions = {
+			from: fromSplit + " <manager@b4express.ru>", // sender address
+			to: "manager@b4express.ru", // list of receivers
+			subject: "Позвоните мне", // Subject line
+			text: message, // plaintext body
+			html: "<p>" + message + "</p>" // html body
+		};
+
+	sendMail( smtpTransport, mailOptions, callback );
+};
+
+exports.sendEmailToQuality = function( body, callback ) {
+    'use strict';
+
+    var from = ( body.fio_quality !== '' ? body.fio_quality : 'Не представился' ),
+        message = "Клиент: " + from + ", Телефон: " + body.phone_quality + ", Емайл: " + body.email_quality +
+            ", Номер накладной: " + body.naklad_quality + ", Сообщение: " + body.message_quality,
+        smtpTransport = nodemailer.createTransport("SMTP",{
+            service: "yandex",
+            auth: {
+                user: "noreply@b4express.ru",
+                pass: "noreply4express"
+            }
+        }),
+        fromSplit = from + "-" + body.phone_quality,
+        mailOptions = {
+            from: fromSplit + " <noreply@b4express.ru>", // sender address
+            to: "manager@b4express.ru", // list of receivers
+            subject: "В отдел контроля качества", // Subject line
+            text: message, // plaintext body
+            html: "<p>" + message + "</p>" // html body
+        };
+
+    sendMail( smtpTransport, mailOptions, callback );
+};
+
+exports.sendEmailNotifyChangeEnergyTariff = function( body, callback ) {
+    'use strict';
+
+    var from = 'Инженер контроля изменения тарифов',
+        message = "Изменились тарифы. JSON: " + body,
+        smtpTransport = nodemailer.createTransport("SMTP",{
+            service: "yandex",
+            auth: {
+                user: "noreply@b4express.ru",
+                pass: "noreply4express"
+            }
+        }),
+        mailOptions = {
+            from: from + " <noreply@b4express.ru>", // sender address
+            to: "manager@b4express.ru", // list of receivers
+            subject: "Изменились тарифы", // Subject line
+            text: message, // plaintext body
+            html: "<p>" + message + "</p>" // html body
+        };
+
+    sendMail( smtpTransport, mailOptions, callback );
+};
+
+exports.sendEmailToReview = function( body, callback ) {
+    'use strict';
+
+    var from = ( body.name_review !== '' ? body.name_review : 'Не представился' ),
+        message = "Клиент: " + from + ", Емайл: " + body.email_review +
+            ", Сообщение: " + body.message_review,
+        smtpTransport = nodemailer.createTransport("SMTP",{
+            service: "yandex",
+            auth: {
+                user: "noreply@b4express.ru",
+                pass: "noreply4express"
+            }
+        }),
+        fromSplit = from + "-" + body.name_review,
+        mailOptions = {
+            from: fromSplit + " <noreply@b4express.ru>", // sender address
+            to: "manager@b4express.ru", // list of receivers
+            subject: "Новый отзыв на сайте", // Subject line
+            text: message, // plaintext body
+            html: "<p>" + message + "</p>" // html body
+        };
+
+    sendMail( smtpTransport, mailOptions, callback );
+};
+
+exports.sendEmailEnergyChecker = function( body, callback ) {
+    'use strict';
+
+    var message = "Груз по накладной № : " + body.id + " находится: " + body.status,
+        smtpTransport = nodemailer.createTransport("SMTP",{
+            service: "yandex",
+            auth: {
+                user: "noreply@b4express.ru",
+                pass: "noreply4express"
+            }
+        }),
+        mailOptions = {
+            from: " <noreply@b4express.ru>", // sender address
+            to: "manager@b4express.ru", // list of receivers
+            subject: "Есть груз на складе!", // Subject line
+            text: message, // plaintext body
+            html: "<p>" + message + "</p>" // html body
+        };
+
+    sendMail( smtpTransport, mailOptions, callback );
+};
+
+exports.sendEmailToPartners_old = function( body, callback ) {
+    'use strict';
+
+    var message = "Здравствуйте! Заказ-накладная в приложении. Отправили через " + body.description + ". Оповестим, когда груз будет на складе в Вашем городе. ",
+        message_notify = "Для подтверждения принятия заказа перейдите по ссылке: " + body.link,
+        smtpTransport = nodemailer.createTransport("SMTP",{
+            service: "yandex",
+            auth: {
+                user: "manager@b4express.ru",
+                pass: "manager030express"
+            }
+        }),
+        mailOptions = {
+            from: " <noreply@b4express.ru>", // sender address
+            to: body.email, // list of receivers
+            subject: "Заказ-накладная", // Subject line
+            text: message + " " + message_notify, // plaintext body
+            html: "<p>" + message + "</p>" + "<p>" + message_notify + "</p>" // html body
+        };
+
+    sendMail( smtpTransport, mailOptions, callback );
+};
+
+exports.sendEmailToPartners = function( body, callback ) {
+    'use strict';
+
+    var message = "Здравствуйте! Заказы-накладные № " + body.orders + " в приложении. Оповестим, когда груз будет на складе в Вашем городе. ",
+        message_notify = "Для подтверждения принятия заказа перейдите по ссылке: " + body.link,
+        smtpTransport = nodemailer.createTransport("SMTP",{
+            service: "yandex",
+            auth: {
+                user: "manager@b4express.ru",
+                pass: "manager030express"
+            }
+        }),
+        mailOptions = {
+            from: " <noreply@b4express.ru>", // sender address
+            to: body.email, // list of receivers
+            subject: "Заказ-накладная", // Subject line
+            text: message + " " + message_notify, // plaintext body
+            html: "<p>" + message + "</p>" + "<p>" + message_notify + "</p>", // html body
+            attachments: [
+                {   // fileName and content type is derived from filePath
+                    filePath: body.file
+                }
+            ]
+        };
+
+    sendMail( smtpTransport, mailOptions, callback );
+};

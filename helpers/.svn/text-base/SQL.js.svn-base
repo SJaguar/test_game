@@ -1,0 +1,75 @@
+var Sequelize = require('sequelize');
+
+	var sequelize = new Sequelize('orders', 'root', 'krutoy', {
+		host: "134.0.117.70",
+		port: 3306,
+		logging: function( data ) {
+			console.log( 'log: ', data );
+		}
+	}),
+
+	Order = sequelize.define('orders', {
+			id: { type: Sequelize.BIGINT, primaryKey: true},
+            energy_id: Sequelize.STRING,
+            city_id: { type: Sequelize.BIGINT },
+            order_id: Sequelize.STRING
+		},{
+			freezeTableName: true,
+            timestamps: false
+		}
+    ),
+
+    City = sequelize.define('cities', {
+            id: { type: Sequelize.BIGINT, primaryKey: true},
+            energy_id: { type: Sequelize.STRING }
+        },{
+            timestamps: false,
+            freezeTableName: true
+        }
+    );
+
+
+exports.getOrdersByOrderId = function( order_id, fn ){
+	'use strict';
+
+    Order.belongsTo(City, {foreignKey : 'city_id'});
+
+    Order.find({ include: [ City ], where: {order_id: order_id}}).success(function(item){
+            if ( item != null )
+                if ( item.selectedValues != null && item.city != null )
+                    item.selectedValues.city = item.city.dataValues;
+			fn(null, item != null ? item.selectedValues : null);
+		}).error(function(err){
+            fn(err, null)
+        });
+
+};
+
+exports.getAllOrdersByEnergy = function( fn ){
+    'use strict';
+
+    Order.belongsTo(City, {foreignKey : 'city_id'});
+
+    Order.findAll({ include: [ City ], where: { 'orders.stage_id': [3,4] } }).success(function(item){
+        if ( item == null )
+            return fn(null, null);
+        var jsnStr = JSON.stringify(item),
+            obj = JSON.parse(jsnStr);
+
+        fn(null, obj);
+    }).error(function(err){
+            fn(err, null)
+        });
+
+};
+
+exports.setIsGiven = function( id, fn ){
+
+    sequelize.query("UPDATE orders SET stage_id = 5 WHERE id = " + id)
+        .success(function(result) {
+            fn(null, result);
+        }).error(function(err) {
+            fn('Ошибка: ' + err, null);
+        })
+
+};

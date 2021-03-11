@@ -4,8 +4,11 @@
   "private": true,
   "dependencies": {
     "@metamodules/postgres": "^1.2.1",
+    "cookie-parser": "^1.4.5",
     "deploy-node-app": "^1.4.3",
     "dotenv": "^8.0.0",
+    "jade": "^1.11.0",
+    "mongoose": "^5.11.19",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"

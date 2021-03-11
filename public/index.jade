@@ -1,0 +1,29 @@
+extends ../../mainLayout
+
+
+block content
+    link(rel="stylesheet", href="/public/css/main.css")
+    div(ng-controller="TestContr")
+        #main
+            #header
+                #header_text
+                    #main_menu
+                        include main_menu
+                    #phone
+                        include phone
+                    #header_info
+                        include header
+                    #logo
+                        include logo
+                    #search
+                        include search
+            #navigation
+                include navigation
+            #sliders
+                include slider
+            #middle
+                include left_menu
+                #catalog
+                    include catalog
+            #footer
+                include footer

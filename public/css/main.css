@@ -1,0 +1,151 @@
+body {
+    margin: 0 auto;
+    font-family: Tahoma, Helvetica Neue,Helvetica,Arial,sans-serif;
+    background: #fff;
+    color: #444;
+}
+
+.modal_game {
+    display: none;
+    width:30%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top:5rem;
+    padding: 1rem;
+    min-height: 400px;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+.modal_who {
+    width:40%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top:5rem;
+    padding: 1rem;
+    min-height: 200px;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+.modal_enemy {
+    display:none;
+    width:40%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top:5rem;
+    padding: 1rem;
+    min-height: 200px;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+.choice {
+    width: 80%;
+    margin: 0 auto;
+}
+.modal_who, .modal_enemy, .modal_game h3 {
+    text-align: center;
+}
+#modal_left_div {
+    float:left;
+    width: 40%;
+    text-align: center;
+}
+#modal_right_div {
+    margin-left:5rem;
+    float:right;
+    width: 40%;
+    text-align: center;
+}
+.button_null {
+    cursor: pointer;
+    padding: 1rem;
+    font-size:1.2em;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+.button_cross {
+    cursor: pointer;
+    padding: 1rem;
+    font-size:1.2em;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.button_null:hover, .button_cross:hover  {
+    background: #fffbed;
+}
+
+.img_small {
+    width: 40px;
+    padding-top: 10px;
+}
+
+/*game css cells*/
+
+#new_game {
+    width:30%;
+    color: #252525;
+    font-size: 0.8em;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+#new_game:hover {
+    cursor: pointer;
+    background: #fffbed;
+}
+.main_div_cells {
+    width: 55%;
+    margin: 0 auto;
+    padding-top: 1rem;
+}
+.main_div_cells div {
+    cursor: pointer;
+    text-align: center;
+    padding-left: 1rem;
+}
+
+.cross_clicked {
+    background: url("cross.png") no-repeat center;
+    background-size: 120%;
+    background-origin: content-box;
+}
+
+.null_clicked {
+    background: url("null.png") no-repeat center;
+    background-size: 120%;
+    background-origin: content-box;
+}
+
+#left_bottom_border {
+    width:17%;
+    padding: 1rem;
+    float:left;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+#bottom_border {
+    width:17%;
+    padding: 1rem;
+    float:left;
+    border-bottom: 1px solid #000;
+}
+#right_border {
+    width:17%;
+    padding: 1rem;
+    float:left;
+    border-right: 1px solid #000;
+}
+#empty_border {
+    width:17%;
+    padding: 1rem;
+    float:left;
+}
